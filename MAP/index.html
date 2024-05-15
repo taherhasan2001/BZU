@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url" content="https://www.bzu-hub.com/schedule-main/MAP/MAP.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Class Schedules for BZU Students" />
+    <meta property="og:description" content="يوفر موقعنا الإلكتروني مجموعة واسعة من الخدمات والموارد لمساعدتك على النجاح في مساعيك الأكاديمية." />
+    <meta property="og:image" content="tag2.png" />
+</head>
+<body>
+    <script>
+        // Function to get the user's preferred language
+        function getUserLanguage() {
+            // You can implement language detection logic here, e.g., using navigator.language
+            // For this example, let's assume 'ar' for Arabic and 'en' for English
+            return navigator.language.startsWith('ar') ? 'ar' : 'en';
+        }
+
+        // Redirect the user to the appropriate page based on their language preference
+        const userLanguage = getUserLanguage();
+        if (userLanguage === 'ar') {
+            window.location.href = 'MAP.html';
+        } else {
+            window.location.href = 'MAP.html';
+        }
+    </script>
+</body>
+</html>

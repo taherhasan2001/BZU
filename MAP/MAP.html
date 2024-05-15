@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PRVBJJFWBW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-PRVBJJFWBW');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="icon" href="tag.jpg" type="image/x-icon">
+    <title>خارطة جامعة بيرزيت</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <meta property="og:url" content="https://www.bzu-hub.com/schedule-main/MAP/MAP.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="خارطة جامعة بيرزيت" />
+    <meta property="og:description" content="يوفر موقعنا الإلكتروني مجموعة واسعة من الخدمات والموارد لمساعدتك على النجاح في مساعيك الأكاديمية." />
+    <meta property="og:image" content="tag2.png" />
+    <link rel="stylesheet" href="./style_hidden.css">
+    <!-- // css team below  -->
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+        <!-- <script src="./external/jsnetworkx.js"></script> -->
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+
+    <style>
+                #my_map {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-ant-path@1.1.2/dist/leaflet-ant-path.min.js"></script>
+
+    <style>
+        .leaflet-image-layer {
+            /* old android/safari*/
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges; /* safari */
+            image-rendering: pixelated; /* chrome */
+            image-rendering: -moz-crisp-edges; /* firefox */
+            image-rendering: -o-crisp-edges; /* opera */
+            -ms-interpolation-mode: nearest-neighbor; /* ie */
+        }
+    </style>
+    <!-- <link rel="icon" href="./IMG/icon.jpg" type="image/png"> -->
+
+</head>
+<body>
+    <div class="folium-map" id="my_map" ></div>
+</body>
+<script>
+
+    
+            var my_map = L.map(
+                "my_map",
+                {
+                    center: [31.95906, 35.18198],
+                    crs: L.CRS.EPSG3857,
+                    maxBounds: [[31.95464, 35.178], [31.97, 35.187]],
+                    zoom: 17,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(my_map);
+
+            
+            L.control.fullscreen({"forceSeparateButton": true, "position": "topright", "title": "Expand me", "titleCancel": "Exit me"}).addTo(my_map);
+
+        
+    
+            var my_layer = L.tileLayer(
+                "",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 22, "maxZoom": 22, "minZoom": 17, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            my_layer.addTo(my_map);
+
+
+    
+            var locate_control_685ff2c5377654f2679a7b1279c09bef = L.control.locate(
+                {}
+            ).addTo(my_map);
+            
+        
+    
+            var mouse_position_92152a3683f59e581b33138fb0dd6305 = new L.Control.MousePosition(
+                {"emptyString": "Unavailable", "lngFirst": false, "numDigits": 5, "position": "bottomright", "prefix": "", "separator": " : "}
+            );
+            mouse_position_92152a3683f59e581b33138fb0dd6305.options["latFormatter"] =
+                undefined;
+            mouse_position_92152a3683f59e581b33138fb0dd6305.options["lngFormatter"] =
+                undefined;
+            my_map.addControl(mouse_position_92152a3683f59e581b33138fb0dd6305);
+        
+    
+            var image_overlay_b5938df83343f2991dda56ba3fe58c80 = L.imageOverlay(
+                './IMG/bzu-campus-map.webp',
+            [[31.95602, 35.178], [31.96474, 35.18643]],
+                {"alt": "BZU", "crossOrigin": false, "interactive": false, "opacity": 1, "zindex": 1}
+            );
+            image_overlay_b5938df83343f2991dda56ba3fe58c80.addTo(my_map);
+            var divElement = document.querySelector('.leaflet-control-attribution.leaflet-control');
+
+
+
+            if (divElement) {
+                divElement.innerHTML = `
+                    <div class="leaflet-control-attribution leaflet-control" style="max-width: 200px;">
+
+                        <span aria-hidden="true"></span> <span class="profession" style="font-size: 14px;">© developed by</span> 
+                        <a href="https://www.linkedin.com/in/taher-hasan-8059a8267/" style="font-size: 14px;">Taher Hasan</a> 
+                    </div>`;
+            }
+
+///////////////////////////////////////
+
+const kafeterya_group = L.featureGroup({});
+kafeterya_group.addTo(my_map);
+const gates_group = L.featureGroup({});
+gates_group.addTo(my_map);
+const otherBuildingsGroup = L.featureGroup({});
+otherBuildingsGroup.addTo(my_map);
+const mosalla_group = L.featureGroup({});
+mosalla_group.addTo(my_map);
+const matba3a_group = L.featureGroup({});
+matba3a_group.addTo(my_map);
+const mahalat_group = L.featureGroup({});
+mahalat_group.addTo(my_map);
+const camera_group = L.featureGroup({});
+camera_group.addTo(my_map);
+const koleyat_group = L.featureGroup({});
+koleyat_group.addTo(my_map);
+const layer_control_51eb62693e988abeeae6e66f6b5fcb4d_layers = {
+    base_layers : {
+        "الخيارات" : my_layer,
+    },
+    overlays :  {
+        "الكليات" : koleyat_group,
+        "الكافتيريات" : kafeterya_group,
+        "مباني مهمة" :otherBuildingsGroup,
+        "المداخل" :gates_group,
+        "المصليات" : mosalla_group,
+        "المطبعات" : matba3a_group,
+        "محلات" : mahalat_group,
+        "تصوير" : camera_group,
+
+    },
+};
+const layer_control_51eb62693e988abeeae6e66f6b5fcb4d = L.control.layers(
+    layer_control_51eb62693e988abeeae6e66f6b5fcb4d_layers.base_layers,
+    layer_control_51eb62693e988abeeae6e66f6b5fcb4d_layers.overlays,
+    {"autoZIndex": true, "collapsed": false, "position": "topright"}
+).addTo(my_map);
+
+/////////////////////////////////////////////////////
+function toggleFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) { /* Firefox */
+        element.mozRequestFullScreen();
+    } else if (element.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+        element.webkitRequestFullscreen();
+    } else if (element.msRequestFullscreen) { /* IE/Edge */
+        element.msRequestFullscreen();
+    } else if (screen.orientation && screen.orientation.lock) { /* Mobile devices */
+        screen.orientation.lock('landscape').then(() => {
+            // Do something after the screen has been locked
+        }).catch((error) => {
+            console.error('Failed to enable full-screen mode:', error);
+        });
+    } else {
+        console.error('Fullscreen API is not supported.');
+    }
+}
+
+const markerPoints = {
+    //////////////////Camera//////////////////////////////////
+
+
+    "camera1":{
+        "color":'lightred',
+        "icon":'camera',
+        "group":camera_group,
+        "my_location": [31.96142 , 35.18281],
+        "msg": "",
+        "counter": 0,
+        "imgs": ["4.jpg"],
+    },
+    "camera2":{
+        "color":'lightred',
+        "icon":'camera',
+        "group":camera_group,
+        "my_location": [31.95866 , 35.18167],
+        "msg": "",
+        "counter": 0,
+        "imgs": ["12.jpg","13.jpg","143.jpg","168.jpg"],
+    },
+    "cameraBank":{
+        "color":'lightred',
+        "icon":'camera',
+        "group":camera_group,
+        "my_location": [31.96038 , 35.1828],
+        "msg": "",
+        "counter": 0,
+        "imgs": ["95.jpg"],
+    },
+    "cameraDowar1":{
+        "color":'lightred',
+        "icon":'camera',
+        "group":camera_group,
+        "my_location": [31.95928, 35.18198],
+        "msg": "",
+        "counter": 0,
+        "imgs": ["125.jpg","129.jpg","162.jpg","164.jpg","165.jpg"],
+    },
+    "camera3":{
+        "color":'lightred',
+        "icon":'camera',
+        "group":camera_group,
+        "my_location": [31.95988 , 35.1821],
+        "msg": "",
+        "counter": 0,
+        "imgs": ["172.jpg"],
+    },
+    "camera4":{
+        "color":'lightred',
+        "icon":'camera',
+        "group":camera_group,
+        "my_location": [31.95997 , 35.18241],
+        "msg": "",
+        "counter": 0,
+        "imgs": ["173.jpg","175.jpg"],
+    },
+    "camera5":{
+        "color":'lightred',
+        "icon":'camera',
+        "group":camera_group,
+        "my_location": [31.96055 , 35.18304],
+        "msg": "",
+        "counter": 0,
+        "imgs": ["182.jpg","184.jpg","191.jpg"],
+    },
+    //////////////////otherBuilding//////////////////////////////////
+    "bankFalsteen":{
+        "color":'orange',
+        "icon":'dollar-sign',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96026 , 35.18241],
+        "msg": "بنك فلسطين",
+        "counter": 0,
+        "imgs": ["166.jpg","213.jpg"],
+    },
+    "modaraj":{
+        "color":'orange',
+        "icon":'star',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96081 , 35.18101],
+        "msg": "مدرج",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mal3ab37":{
+        "color":'orange',
+        "icon":'futbol',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96102 , 35.18091],
+        "msg": "ملعب رياضي",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mal3ab37_2":{
+        "color":'orange',
+        "icon":'futbol',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96075 , 35.18137],
+        "msg": "ملعب رياضي",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mal3ab38_4":{
+        "color":'orange',
+        "icon":'basketball-ball',
+        "group":otherBuildingsGroup,
+        "my_location": [31.9597 , 35.18085],
+        "msg": "ملعب رياضي",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mal3ab38_3":{
+        "color":'orange',
+        "icon":'basketball-ball',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96012 , 35.18106],
+        "msg": "ملعب رياضي",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mal3ab38_2":{
+        "color":'orange',
+        "icon":'basketball-ball',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96122 , 35.18211],
+        "msg": "ملعب رياضي",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mal3ab38":{
+        "color":'orange',
+        "icon":'basketball-ball',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96147 , 35.18129],
+        "msg": "ملعب رياضي",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mahataMo3alaja":{
+        "color":'orange',
+        "icon":'water',
+        "group":otherBuildingsGroup,
+        "my_location": [31.9574 , 35.1856],
+        "msg": "محطة معالجة الصرف الصحي ",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mahataKahrabaSmall":{
+        "color":'orange',
+        "icon":'bolt',
+        "group":otherBuildingsGroup,
+        "my_location": [31.95794, 35.18529],
+        "msg": "محطة كهرباء فرعية",
+        "counter": 0,
+        "imgs": [],
+    },
+    "abarMeyah":{
+        "color":'orange',
+        "icon":'water',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96012 , 35.18411],
+        "msg": "خزان وآبار المياه",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mahataKahraba2":{
+        "color":'orange',
+        "icon":'bolt',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96065 , 35.18076],
+        "msg": "محطة توليد كهراء",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mahataKahraba":{
+        "color":'orange',
+        "icon":'bolt',
+        "group":otherBuildingsGroup,
+        "my_location": [31.95997 , 35.18362],
+        "msg": "محطة توليد كهراء",
+        "counter": 0,
+        "imgs": [],
+    },
+    "eskan":{
+        "color":'orange',
+        "icon":'star',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96096 , 35.18544],
+        "msg": "إسكان رياض للطالبات",
+        "counter": 0,
+        "imgs": [],
+    },
+    "adweya":{
+        "color":'orange',
+        "icon":'pills',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96266 , 35.18242],
+        "msg": "معهد صناعات الأدوية",
+        "counter": 0,
+        "imgs": [],
+    },
+    "maktabaMain":{
+        "color":'orange',
+        "icon":'book-open',
+        "group":otherBuildingsGroup,
+        "my_location": [31.95886 , 35.18261],
+        "msg": "المكتبة الرئيسية",
+        "counter": 0,
+        "imgs": ["14.jpg","73.jpg","85.jpg","92.jpg","93.jpg"],
+    },
+    "texhno-park":{
+        "color":'orange',
+        "icon":'star',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96596 , 35.18301],
+        "msg": "مبنى التكنو بارك",
+        "counter": 0,
+        "imgs": [],
+    },
+    "first_mathaf":{
+        "color":'orange',
+        "icon":'star',
+        "group":otherBuildingsGroup,
+        "my_location": [31.96344 , 35.18364],
+        "msg": "متحف الجامعة",
+        "counter": 0,
+        "imgs": [],
+    },
+    "fsecond_mathaf":{
+        "color":'orange',
+        "icon":'star',
+        "group":otherBuildingsGroup,
+        "my_location": [31.95883 , 35.183],
+        "msg": "متحف الجامعة",
+        "counter": 0,
+        "imgs": ["99.jpg"],
+    },
+    "eyada":{
+        "color":'orange',
+        "icon":'ambulance',
+        "group":otherBuildingsGroup,
+        "my_location": [31.95842 , 35.18199],
+        "msg": "عيادة الجامعة",
+        "counter": 0,
+        "imgs": ["94.jpg","231.jpg","243.jpg"],
+    },
+    //////////////////kaf_cofee//////////////////////////////////
+    "abo_ahmed":{
+        "color":'red',
+        "icon":'coffee',
+        "group":kafeterya_group,
+        "my_location": [31.95936, 35.17988],
+        "msg": "كافتيريا العم أبو أحمد",
+        "counter": 0,
+        "imgs": [],
+    },
+    "alzaeem":{
+        "color":'red',
+        "icon":'coffee',
+        "group":kafeterya_group,
+        "my_location": [31.9595 , 35.17989],
+        "msg": "كافتيريا الزعيم",
+        "counter": 0,
+        "imgs": [],
+    },
+    //////////////////kafeterya//////////////////////////////////
+
+    "kaf_tamreed":{
+        "color":'red',
+        "icon":'utensils',
+        "group":kafeterya_group,
+        "my_location": [31.96219 , 35.18266],
+        "msg": "كافتيريا التمريض",
+        "counter": 0,
+        "imgs": ["247.jpg"],
+    },
+    "kaf_tejara":{
+        "color":'red',
+        "icon":'utensils',
+        "group":kafeterya_group,
+        "my_location": [31.95825 , 35.18329],
+        "msg": "كافتيريا التجارة",
+        "counter": 0,
+        "imgs": [],
+    },
+    "kaf_oloom":{
+        "color":'red',
+        "icon":'utensils',
+        "group":kafeterya_group,
+        "my_location": [31.95821 , 35.18092],
+        "msg": "كافتيريا العلوم",
+        "counter": 0,
+        "imgs": [],
+    },
+    "kaf_main":{
+        "color":'red',
+        "icon":'utensils',
+        "group":kafeterya_group,
+        "my_location": [31.95965 , 35.18169],
+        "msg": "كافتيريا المركزية",
+        "counter": 0,
+        "imgs": ["161.jpg"],
+    },
+    "kaf_adab":{
+        "color":'red',
+        "icon":'utensils',
+        "group":kafeterya_group,
+        "my_location": [31.96086 , 35.1825],
+        "msg": "كافتيريا الآداب",
+        "counter": 0,
+        "imgs": [],
+    },
+    //////////////////madakhel//////////////////////////////////
+    "sharqi":{
+        "color":'cadetblue',
+        "icon":'sign-in-alt',
+        "group":gates_group,
+        "my_location": [31.96192 , 35.18475],
+        "msg": "المدخل الشرقي",
+        "counter": 0,
+        "imgs": [],
+    },
+    "janobi":{
+        "color":'cadetblue',
+        "icon":'sign-in-alt',
+        "group":gates_group,
+        "my_location": [31.95746 , 35.18496],
+        "msg": "المدخل الجنوبي",
+        "counter": 0,
+        "imgs": [],
+    },
+    "qharbi":{
+        "color":'cadetblue',
+        "icon":'sign-in-alt',
+        "group":gates_group,
+        "my_location": [31.95867 , 35.18025],
+        "msg": "المدخل الغربي",
+        "counter": 0,
+        "imgs": [],
+    },
+    //////////////////mosalla//////////////////////////////////
+    "mo_IT":{
+        "color":'green',
+        "icon":'star-and-crescent',
+        "group":mosalla_group,
+        "my_location": [31.9614 , 35.18475],
+        "msg": "الطابق 4 للطلاب\n الطابق الأرضي للطالبات",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mo_HANDASA":{
+        "color":'green',
+        "icon":'star-and-crescent',
+        "group":mosalla_group,
+        "my_location": [31.95963 , 35.18033],
+        "msg": "الطابق -1 للطلاب\n بالرفوف آخر الدرج للطالبات",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mo_olom":{
+        "color":'green',
+        "icon":'star-and-crescent',
+        "group":mosalla_group,
+        "my_location": [31.95842 , 35.18073],
+        "msg": "الطابق -1 للطلاب\n الطابق -2 للطالبات",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mo_adab":{
+        "color":'green',
+        "icon":'star-and-crescent',
+        "group":mosalla_group,
+        "my_location": [31.96095 ,35.18279],
+        "msg": "الطابق -1 للطلاب\n الطابق -1 للطالبات",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mo_hoqoq":{
+        "color":'green',
+        "icon":'star-and-crescent',
+        "group":mosalla_group,
+        "my_location": [31.9602 ,35.18293],
+        "msg": "الطابق الثاني للطلاب\n الطابق الرايع للطالبات",
+        "counter": 0,
+        "imgs": [],
+    },
+    //////////////////matba3a//////////////////////////////////
+    "mat_olom":{
+        "color":'darkpurple',
+        "icon":'print',
+        "group":matba3a_group,
+        "my_location": [31.95817 , 35.18136],
+        "msg": "مطبعة العلوم",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mat_adab":{
+        "color":'darkpurple',
+        "icon":'print',
+        "group":matba3a_group,
+        "my_location": [31.96105 , 35.18274],
+        "msg": "مطبعة الآداب",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mat_tejara":{
+        "color":'darkpurple',
+        "icon":'print',
+        "group":matba3a_group,
+        "my_location": [31.95832 , 35.18312],
+        "msg": "مطبعة التجارة",
+        "counter": 0,
+        "imgs": [],
+    },
+    "mat_handasa":{
+        "color":'darkpurple',
+        "icon":'print',
+        "group":matba3a_group,
+        "my_location": [31.95982 , 35.18065],
+        "msg": "مطبعة الهندسة",
+        "counter": 0,
+        "imgs": [],
+    },
+
+    //////////////////Mahalat//////////////////////////////////
+    "shini":{
+        "color":'darkred',
+        "icon":'shopping-cart',
+        "group":mahalat_group,
+        "my_location": [31.96032 , 35.18233],
+        "msg": "سوبر ماركت الشني",
+        "counter": 0,
+        "imgs": [],
+    },
+    "bookstore":{
+        "color":'darkred',
+        "icon":'shopping-cart',
+        "group":mahalat_group,
+        "my_location": [31.96027 , 35.18246],
+        "msg": "البوك ستور",
+        "counter": 0,
+        "imgs": [],
+    },
+    //////////////////koleyat//////////////////////////////////
+    "olom":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95848 , 35.18092],
+        "msg": "كلية العلوم",
+        "counter": 0,
+        "imgs": ["15.jpg","107.jpg"],
+    },
+    "handasa":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95954 , 35.18048],
+        "msg": "كلية الهندسة",
+        "counter": 0,
+        "imgs": ["5.jpg","72.jpg"],
+    },
+
+    "kamalNaser":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.9588 , 35.18186],
+        "msg": "قاعة الشهيد كمال ناصر",
+        "counter": 0,
+        "imgs": ["10.jpg","118.jpg","136.jpg","137.jpg","140.jpg","152.jpg"],
+    },
+    
+    "tejara":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95841 , 35.18328],
+        "msg": "كلية التجارة",
+        "counter": 0,
+        "imgs": ["113.jpg","83.jpg","79.jpg","21.jpg","65.jpg","62.jpg","63.jpg","74.jpg","76.jpg","77.jpg"],
+    },
+    "molhaqTejara":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95841 , 35.18373],
+        "msg": "ملحق التجارة",
+        "counter": 0,
+        "imgs": ["106.jpg","108.jpg"],
+    },
+    "derasatOlya":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95837 , 35.18257],
+        "msg": "مبنى الدراسات العليا",
+        "counter": 0,
+        "imgs": ["6.jpg","97.jpg","98.jpg"],
+    },
+    "tasjeel":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95933 , 35.1824],
+        "msg": "مبنى التسجيل",
+        "counter": 0,
+        "imgs": ["163.jpg"],
+    },
+    "edara":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95915 , 35.18143],
+        "msg": "مبنى إدارة الجامعة",
+        "counter": 0,
+        "imgs": ["1.jpg"],
+    },
+    "reasa":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95946 , 35.18321],
+        "msg": "مبنى رئاسة الجامعة",
+        "counter": 0,
+        "imgs": ["2.jpg","23.jpg","45.jpg","78.jpg"],
+    },
+    "hoqoqHigh":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95967 , 35.1823],
+        "msg": "معهد الحقوق",
+        "counter": 0,
+        "imgs": ["167.jpg","224.jpg"],
+    },
+    "mojama3Talaba":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.95985 , 35.18189],
+        "msg": "مبنى مجمع الطلبة",
+        "counter": 0,
+        "imgs": ["169.jpg"],
+    },
+    "hoqoqSmall":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96034 , 35.1831],
+        "msg": "مبنى الحقوق والإدارة العامة",
+        "counter": 0,
+        "imgs": ["7.jpg","8.jpg","190.jpg","196.jpg"],
+    },
+    "tarbeya":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96069, 35.18364],
+        "msg": "كلية التربية",
+        "counter": 0,
+        "imgs": ["20.jpg"],
+    },
+    "zaanee":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96108 , 35.18426],
+        "msg": "مبنى زعني القبة الزرقاء",
+        "counter": 0,
+        "imgs": ["257.jpg","258.jpg","202.jpg","205.jpg","207.jpg","217.jpg","225.jpg"],
+    },
+    "IT":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96154 , 35.18455],
+        "msg": "كلية الآي تي",
+        "counter": 0,
+        "imgs": ["228.jpg"],
+    },
+    "tanmeya":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96122 , 35.18358],
+        "msg": "كلية التنمية",
+        "counter": 0,
+        "imgs": ["19.jpg"],
+    },
+    "e3lam":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96164 , 35.18364],
+        "msg": "كلية الإعلام",
+        "counter": 0,
+        "imgs": ["9.jpg"],
+    },
+    "woman":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96122 , 35.18312],
+        "msg": "مبنى دراسات المرأة",
+        "counter": 0,
+        "imgs": [],
+    },
+    "masra7":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96223 ,35.18391],
+        "msg": "مسرح نسيب عزيز شاهين",
+        "counter": 0,
+        "imgs": ["230.jpg","232.jpg"],
+    },
+    "tamreed":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96222 , 35.18287],
+        "msg": "كلية التمريض",
+        "counter": 0,
+        "imgs": ["256.jpg","17.jpg","18.jpg","239.jpg","245.jpg"],
+    },
+    "fonoon":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96222 , 35.18199],
+        "msg": "كلية الفنون",
+        "counter": 0,
+        "imgs": ["251.jpg"],
+    },
+    "newKoleya":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96172 , 35.1823],
+        "msg": "الكلية الجديدة",
+        "counter": 0,
+        "imgs": [],
+    },
+    "reyada":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96128 , 35.18171],
+        "msg": "مبنى التربية الرياضية",
+        "counter": 0,
+        "imgs": ["16.jpg"],
+    },
+    "adab":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96078 , 35.18274],
+        "msg": "كلية الآداب",
+        "counter": 0,
+        "imgs": ["3.jpg"],
+    },
+    "mashaghel":{
+        "color":'darkblue',
+        "icon":'school',
+        "group":koleyat_group,
+        "my_location": [31.96011 , 35.18084],
+        "msg": "مبنى مشاغل الهندسة",
+        "counter": 0,
+        "imgs": [],
+    },
+}
+
+
+function swapImageRight(event, obj_key) {
+    const Images = markerPoints[obj_key]["imgs"];
+    const my_length = Images.length;
+    const img_id = obj_key;
+    let counter = markerPoints[obj_key]["counter"];
+    
+    // Prevent the default context menu on right-click
+    event.preventDefault();
+
+    // Increment the counter and update the image source
+    counter = (counter + 1) % my_length;
+    markerPoints[obj_key]["counter"] = counter;
+    $("#" + img_id).attr("src", "./IMG/" + Images[counter]);
+
+    
+}
+function swapImageLeft(event, obj_key) {
+    const Images = markerPoints[obj_key]["imgs"];
+    const my_length = Images.length;
+    const img_id = obj_key;
+    let counter = markerPoints[obj_key]["counter"];
+    
+    // Prevent the default context menu on right-click
+    event.preventDefault();
+
+    // Increment the counter and update the image source
+    counter = (counter - 1 + my_length) % my_length;  // Ensure a positive result
+    markerPoints[obj_key]["counter"] = counter;
+    $("#" + img_id).attr("src", "./IMG/" + Images[counter]);
+
+}
+
+function setMarkerCamera(obj_key){
+    const myColor = markerPoints[obj_key]["color"];
+    const msg =  markerPoints[obj_key]["msg"];
+    const img_id =  obj_key;
+    const image = markerPoints[obj_key]["imgs"][0];
+    const my_location = markerPoints[obj_key]["my_location"];
+    const group = markerPoints[obj_key]["group"];
+    const icon_text = markerPoints[obj_key]["icon"];
+    let myMarker = L.marker(
+        my_location, {}
+    ).addTo(group);
+    let icon = L.AwesomeMarkers.icon({icon: icon_text, prefix: 'fa', markerColor: myColor, iconColor: 'white'});
+    myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+
+    
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+            </button>
+            <div style="text-align: center; margin: 0 20px;">
+                <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                <b>${msg}<br>
+            </div>
+            <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </button>
+        </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+
+for (i in markerPoints){
+    setMarkerCamera(i);
+}
+
+//////////////////////////////////////////////
+// Prevent right-click on the entire document
+document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+});
+var sectionElement = document.querySelector('.leaflet-control-layers-list');
+sectionElement.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+});
+sectionElement.style.userSelect = 'none';
+sectionElement.style.webkitUserSelect = 'none';
+sectionElement.style.MozUserSelect = 'none';
+sectionElement.style.msUserSelect = 'none';
+sectionElement.style.direction = 'rtl';
+
+document.addEventListener("DOMContentLoaded", function() {
+    const radioBtn = document.querySelector('.leaflet-control-layers-selector');
+    
+    const overlaysDiv = document.querySelector('.leaflet-control-layers-overlays');
+    const overlaysDiv2 = document.querySelector('.leaflet-control-layers-separator');
+    const layersList = document.querySelector('.leaflet-control-layers-list');
+    layersList.style.direction = "rtl";
+    layersList.style.fontSize = '16px'; // Adjust the font size as needed
+
+    radioBtn.addEventListener('click', function() {
+        if (overlaysDiv.style.display === "none") {
+            overlaysDiv.style.display = "block";
+            overlaysDiv2.style.display = "block";
+        } else {
+            overlaysDiv.style.display = "none";
+            overlaysDiv2.style.display = "none";
+
+        }
+    });
+});          
+var thx_marker = L.marker(
+    [31.96447 , 35.18539],
+    {}
+).addTo(my_map);
+
+/////////////////////thx marker///////////////////////////////
+var custom_icon_8362ed843164704ba51206661ef10fc7 = L.icon({"iconAnchor": [22, 94], "iconSize": [38, 95], "iconUrl": "https://leafletjs.com/examples/custom-icons/leaf-red.png", "popupAnchor": [-3, -76], "shadowAnchor": [4, 62], "shadowSize": [50, 64], "shadowUrl": "https://leafletjs.com/examples/custom-icons/leaf-shadow.png"});
+thx_marker.setIcon(custom_icon_8362ed843164704ba51206661ef10fc7);
+var popup_e54870d88b7a6b877cde8ceb5251381d = L.popup({"maxWidth": "100%"});
+var html_3ef1b3027da2e440f91a82079c0ec367 = $(`
+<div id="html_3ef1b3027da2e440f91a82079c0ec367" style="width: 300px; height: 100.0%; font-size: 24px; font-weight: bold; color: #333; text-align: center; padding: 20px; background-color: #f0f0f0; border-radius: 10px;">شكر خاص <a href="https://www.facebook.com/lanaaa99" style="color: #007bff; text-decoration: none;">لانا السايس</a> </div>
+
+`)[0];
+popup_e54870d88b7a6b877cde8ceb5251381d.setContent(html_3ef1b3027da2e440f91a82079c0ec367);
+thx_marker.bindPopup(popup_e54870d88b7a6b877cde8ceb5251381d);
+////////////////////////////////////////////////////
+
+
+</script>
+</html>

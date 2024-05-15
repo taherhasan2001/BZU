@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script>
+        L_NO_TOUCH = false;
+        L_DISABLE_3D = false;
+    </script>
+    
+    <script src="./external/jsnetworkx.js"></script>
+
+    <!-- <link rel="stylesheet" href="./external/leaflet.awesome-markers.css"> -->
+  
+    <!-- <script src="https://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script> -->
+  
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/> -->
+    
+    <meta name="viewport" content="width=device-width,
+        initial-scale=1.0, maximum-scale=1.0" />
+    <style>
+        html, body {width: 100%;height: 100%;margin: 0;padding: 0;}
+        #my_map {
+            position: relative;
+            width: 100.0%;
+            height: 100.0%;
+            left: 0.0%;
+            top: 0.0%;
+        }
+        .leaflet-container { font-size: 1rem; }
+        .profession {
+            color: #3f3736; /* You can adjust the color as needed */
+            font-family: 'Arial', sans-serif; /* Change the font family here */
+
+        }
+        .text-tooltip {
+            font-size: 10px; /* Set the initial font size */
+            color: #615F5F; /* Set the text color */
+            background-color: transparent !important; /* Make the background transparent */
+            border: none !important; /* Remove the border */
+            box-shadow: none !important; /* Remove any shadow */
+            padding: 0; /* Remove padding */
+            margin: 0; /* Remove margin */
+            line-height: 1; /* Set line height to 1 to remove extra spacing */
+        }
+</style>
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.66.2/L.Control.Locate.min.css"/> -->
+    <script src="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-ant-path@1.1.2/dist/leaflet-ant-path.min.js"></script>
+    <!-- <script src="https://unpkg.com/leaflet.featuregroup.subgroup@1.0.2/dist/leaflet.featuregroup.subgroup.js"></script> -->
+
+</head>
+<body>
+    <div class="folium-map" id="my_map" ></div>
+</body>
+<script>
+
+
+
+let fullscreenButton = document.querySelector('.leaflet-control-fullscreen');
+if (fullscreenButton) {
+    fullscreenButton.click();
+}
+let my_map = L.map(
+    "my_map",
+    {
+        center: [31.95906, 35.18198],
+        crs: L.CRS.EPSG3857,
+        maxBounds: [[31.95, 35.178], [31.97, 35.19]],
+        zoom: 16,
+        zoomControl: true,
+        preferCanvas: false,
+    }
+);
+L.control.scale().addTo(my_map);
+let my_layer = L.tileLayer(
+    "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {"attribution": "\u0026copy; \u003ca href=\"https://www.facebook.com/profile.php?id=100009133824763\"\u003eTaher Hasan\u003c/a\u003e designer", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 16, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+);
+my_layer.addTo(my_map);
+
+L.control.fullscreen({"forceSeparateButton": true, "position": "topright", "title": "Expand me", "titleCancel": "Exit me"}).addTo(my_map);
+
+my_map.on('zoomend', function() {
+    // Get the current zoom level
+    let zoomLevel = my_map.getZoom();
+
+    // Calculate the new font size based on the zoom level
+    let fontSize = 10 + (zoomLevel - 16); // Adjust this formula as needed
+
+    // Update the font size of the text tooltip
+    $('.text-tooltip').css('font-size', fontSize + 'px');
+    
+    // Check if the zoom level is 15
+    if (zoomLevel <17) {
+        // Hide the tooltip
+        $('.text-tooltip').hide();
+    } else {
+        // Show the tooltip (if it was hidden)
+        $('.text-tooltip').show();
+    }
+});
+
+// let poly_line_7d54366724bc475fab12ee6df477e209 = L.polyline(
+//     [[31.96997, 35.17801], [31.94994, 35.17801], [31.94994, 35.19002], [31.97, 35.19007], [31.96997, 35.17801]],
+//     {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+// ).addTo(my_map);
+let popup_b457c5b447f6d0143c3782bceabbe297 = L.popup({"maxWidth": "100%"});
+let html_51663584d170cae7446f613b2c6655bf = $(`<div id="html_51663584d170cae7446f613b2c6655bf" style="width: 100.0%; height: 100.0%;">outline Popup on Polyline</div>`)[0];
+popup_b457c5b447f6d0143c3782bceabbe297.setContent(html_51663584d170cae7446f613b2c6655bf);
+// poly_line_7d54366724bc475fab12ee6df477e209.bindPopup(popup_b457c5b447f6d0143c3782bceabbe297);
+let locate_control_e96cbdaf2ae29fd41616558b45651ea1 = L.control.locate({}).addTo(my_map);
+let mouse_position_5e9aa4f403125d3130ff2b20d0bd0082 = new L.Control.MousePosition(
+    {"emptyString": "Unavailable", "lngFirst": false, "numDigits": 5, "position": "bottomright", "prefix": "", "separator": " : "}
+);
+mouse_position_5e9aa4f403125d3130ff2b20d0bd0082.options["latFormatter"] =
+    undefined;
+mouse_position_5e9aa4f403125d3130ff2b20d0bd0082.options["lngFormatter"] =
+    undefined;
+my_map.addControl(mouse_position_5e9aa4f403125d3130ff2b20d0bd0082);
+
+
+let circle_marker_4678224e1edd4a9716e09e2b670022a2 = L.circleMarker(
+    [31.97, 35.178],
+    {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+).addTo(my_map);
+
+
+circle_marker_4678224e1edd4a9716e09e2b670022a2.bindTooltip(
+    `<div>
+            Upper Left Corner
+        </div>`,
+    {"sticky": true}
+);
+
+
+let circle_marker_604f3bf7a741b38d0fa3579783b7db8b = L.circleMarker(
+    [31.95, 35.178],
+    {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+).addTo(my_map);
+
+
+circle_marker_604f3bf7a741b38d0fa3579783b7db8b.bindTooltip(
+    `<div>
+            Lower Left Corner
+        </div>`,
+    {"sticky": true}
+);
+
+
+let circle_marker_6ba18dbf2c83ef22c704bee9989c031d = L.circleMarker(
+    [31.95, 35.19],
+    {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+).addTo(my_map);
+
+
+circle_marker_6ba18dbf2c83ef22c704bee9989c031d.bindTooltip(
+    `<div>
+            Lower Right Corner
+        </div>`,
+    {"sticky": true}
+);
+
+
+let circle_marker_6ad86514902973b9ceab550f03184ff8 = L.circleMarker(
+    [31.97, 35.19],
+    {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+).addTo(my_map);
+
+
+circle_marker_6ad86514902973b9ceab550f03184ff8.bindTooltip(
+    `<div>
+            Upper Right Corner
+        </div>`,
+    {"sticky": true}
+);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+POINTS ={
+    "A1": [31.96178,35.18506],
+    "A2": [31.96178,35.18431],
+    "A3": [31.96178,35.18349],
+    "A4": [31.96183,35.18344],
+    "A5": [31.96184,35.18337],
+    "A6": [31.96182,35.18331],
+    "B1": [31.96178,35.18137],
+    "B2": [31.961735,35.18124],
+    "L0": [31.9617, 35.18136],
+    "A8":[31.96171, 35.18327],
+    "K0": [31.96165, 35.18129],
+    "K1": [31.96132 , 35.18225],
+    "K2": [31.96123 , 35.18242],
+    "H4":[31.96105, 35.18261],
+    "B3": [31.96059,35.18068],
+    "B4": [31.95994,35.1803],
+    "B5": [31.95913,35.18002],
+    "C1":[31.95856,35.18037],
+    "C2":[31.95833,35.18047],
+    "C3":[31.95802,35.18067],
+    "C4":[31.95781,35.18092],
+    "C5":[31.95771,35.18127],
+    "C6":[31.957798,35.18233],
+    "C7":[31.95791,35.18308],
+    "C8":[31.95797,35.18361],
+    "C9":[31.9582,35.184357],
+    "C10":[31.95831,35.18473],
+    "C11":[31.95842,35.18495],
+    "C12":[31.95851,35.18504],
+    "C13":[31.95879,35.185185],
+    "C14":[31.95888,35.18525],
+    "C15":[31.95919,35.18570],
+    "C16":[31.95936,35.185865],
+    "C17":[31.95956,35.186],
+    "C18":[31.95981,35.18612],
+    "C19":[31.95997,35.18616],
+    "C20":[31.96006,35.18615],
+    "C21":[31.96016,35.186089],
+    "C22":[31.96023,35.186],
+    "C23":[31.96038,35.18475],
+    "C24":[31.96045,35.18453],
+    "D2":[31.9609,35.18376],
+    "D3":[31.960715,35.1835],
+    "D4":[31.96032,35.18294],
+    "D5":[31.959855,35.1822],
+    "D6":[31.95968,35.1821],
+    "D7":[31.95937 , 35.18206],
+    "D8":[31.95926 , 35.18198],
+    "D9":[31.959225 , 35.18191],
+    "D10":[31.95915 , 35.18188],
+    "D11":[31.95909 , 35.18191],
+    "D12":[31.95906 , 35.18198],
+    "D13":[31.95905 , 35.18204],
+    "D14":[31.9591 , 35.1821],
+    "D15":[31.95917, 35.18212],
+    "D16":[31.95922 , 35.18209],
+    "F1":[31.959023,35.18212],
+    "F2":[31.95902, 35.18234],
+    "F3":[31.958943, 35.18294],
+    "F4":[31.95855, 35.18368],
+    "G1":[31.95852, 35.18326],
+    "G2":[31.9585, 35.18267],
+    "G3":[31.95849,35.18243],
+    "G4":[31.95851, 35.18188],
+    "G5":[31.95858, 35.18148],
+    "G6":[31.95863, 35.18131],
+    "E4":[31.95887,35.1812],
+    "E3":[31.95898, 35.18114],
+    "E2":[31.959195 ,35.1811],
+    "E1":[31.9592, 35.18177],
+    "H1":[31.95961, 35.18123],
+    "H2":[31.959715, 35.18132],
+    "H3":[31.96035, 35.1817],
+
+    "H5":[31.96153, 35.18329],
+    "A9":[31.96165, 35.18334],
+    "A7": [31.96178, 35.18328],
+    "A10":[31.96165, 35.18343],
+    "A11":[31.9617, 35.18349],
+    "A0":[31.9617, 35.18508],
+    "J0":[31.96171, 35.18429],
+    "D0":[31.96149,35.184255],
+    "D1":[31.9612,35.18412],
+    "Z0":[31.9595 , 35.182073],
+    "Z1":[31.9592, 35.18168],
+    "Z2":[31.95861 ,35.18099],
+}
+
+IT_location = [
+    [31.96132, 35.18437],
+    [31.96121, 35.18462],
+    [31.96135, 35.1847],
+    [31.9614, 35.18457],
+    [31.96153, 35.18461],
+    [31.96158, 35.18451],
+]
+NAJJAD_location = [
+    [31.9609, 35.18402],
+    [31.96071, 35.18432],
+    [31.96093, 35.184525],
+    [31.96096, 35.18446],
+    [31.96114, 35.18462],
+    [31.96124 ,35.18446],
+    [31.96116, 35.1844],
+    [31.96112, 35.18441],
+    [31.96098, 35.18426],
+    [31.96104, 35.18415],
+    [31.9609, 35.18402],
+]
+Tarbiya_location =[
+    [31.96021, 35.18365],
+    [31.96046, 35.18342],
+    [31.96074, 35.18384],
+    [31.96049, 35.18408],
+
+    [31.96021, 35.18365],
+]
+Hoqoq_location =[
+    [31.9598, 35.18321],
+    [31.96006, 35.18352],
+    [31.96041, 35.18318],
+    [31.96018, 35.18281],
+    [31.9598, 35.18321],
+]
+mainLibrary_location =[
+    [31.95864, 35.18238],
+    [31.95864, 35.18315],
+    [31.95877, 35.18313],
+    [31.95877, 35.18304],
+    [31.95882, 35.18303],
+    [31.95882, 35.18289],
+    [31.95888, 35.18285],
+    [31.95888, 35.18237],
+    [31.95876, 35.18248],
+
+    [31.95864, 35.18238],
+]
+kamalNaser_location =[
+    [31.95863, 35.18203],
+    [31.95893, 35.18219],
+    [31.958988, 35.18203],
+    [31.95894, 35.182],
+    [31.95897, 35.18192],
+    [31.95878, 35.18182],
+    [31.9588, 35.18176],
+    [31.95868, 35.1817],
+    [31.95863, 35.18184],
+    [31.95869, 35.181875],
+
+
+
+    [31.95863, 35.18203],
+]
+olom_location =[
+    [31.95824, 35.18066],
+    [31.95822, 35.18105],
+    [31.95792, 35.18104],
+    [31.95793, 35.18178],
+    [31.95815, 35.18181],
+    [31.95822, 35.18137],
+    [31.95846, 35.18137],
+    [31.95848, 35.18067],
+
+    [31.95824, 35.18066],
+]
+handasa_location =[
+    [31.95913, 35.18019],
+    [31.95908, 35.18045],
+    [31.95921, 35.18049],
+    [31.95919, 35.18061],
+    [31.95947, 35.1807],
+    [31.9595, 35.1806],
+    [31.95961, 35.18063],
+    [31.95958, 35.18075],
+    [31.95976, 35.18079],
+    [31.95985, 35.18036],
+    [31.95968, 35.18032],
+    [31.95966, 35.18048],
+    [31.95953, 35.18044],
+    [31.95956, 35.18026],
+    [31.95939, 35.18022],
+
+    [31.95936, 35.18037],
+    [31.95928, 35.18035],
+    [31.95931, 35.18023],
+    [31.95913, 35.18019],
+
+]
+tejara_location = [
+    [31.95808, 35.18279],
+    [31.958395, 35.18278],
+    [31.95841, 35.18321],
+    [31.95848, 35.18321],
+    [31.958475, 35.18334],
+    [31.95839, 35.18334],
+    [31.95839, 35.18368],
+    [31.95808, 35.18369],
+    [31.95808, 35.18326],
+    [31.95796, 35.183265],
+    [31.95796, 35.18312],
+    [31.95808, 35.18311],
+
+
+
+    [31.95808, 35.18279],
+]
+sport_location = [
+    [31.96109, 35.18152],
+    [31.96095, 35.18193],
+    [31.96123, 35.18207],
+    [31.96138, 35.18166],
+
+    [31.96109, 35.18152],
+]
+adab_location = [
+    [31.96043, 35.18269],
+    [31.96066, 35.18303],
+    [31.96091, 35.18278],
+    [31.96084, 35.18268],
+    [31.96078, 35.18273],
+    [31.96071, 35.18264],
+    [31.96078, 35.182565],
+    [31.9607, 35.182435],
+
+    [31.96043, 35.18269],
+]
+ilam_location =[
+    [31.96131, 35.18371],
+    [31.96142, 35.18385],
+    [31.96161, 35.18364],
+    [31.9615, 35.1835],
+
+    [31.96131, 35.18371],
+]
+tanmiya_location =[
+    [31.96085, 35.18349],
+    [31.96114, 35.18385],
+    [31.96125, 35.18372],
+    [31.96096, 35.18337],
+
+    [31.96085, 35.18349],
+]
+woman_location =[
+    [31.96088, 35.18316],
+    [31.96097, 35.18327],
+    [31.96116, 35.18307],
+    [31.96107, 35.18296],
+
+    [31.96088, 35.18316],
+
+]
+tamreed_location =[
+    [31.96198, 35.18298],
+    [31.96202, 35.18303],
+    [31.96199, 35.18307],
+    [31.96206, 35.18315],
+    [31.96209, 35.18312],
+    [31.96219, 35.18324],
+    [31.96234, 35.18308],
+    [31.96224, 35.18296],
+    [31.96222, 35.18299],
+    [31.96214, 35.1829],
+    [31.96203, 35.18285],
+    [31.96198, 35.18288],
+
+    [31.96198, 35.18298],
+]
+edara_location =[
+    [31.95893, 35.18128],
+    [31.95893, 35.18142],
+    [31.95897, 35.18155],
+    [31.95891, 35.18156],
+    [31.9589, 35.1818],
+    [31.9591, 35.1818],
+    [31.95911, 35.18174],
+    [31.95914, 35.18174],
+    [31.95914, 35.18162],
+    [31.95911, 35.18162],
+    [31.9591, 35.18125],
+
+    [31.95893, 35.18128],
+]
+food_location =[
+    [31.95943, 35.18153],
+    [31.95944, 35.1819],
+    [31.95967, 35.18189],
+    [31.95968, 35.18203],
+    [31.95989, 35.1821],
+    [31.95989, 35.18201],
+    [31.95993, 35.18201],
+    [31.95993, 35.18193],
+    [31.95998, 35.18193],
+    [31.95998, 35.18186],
+    [31.96005, 35.18185],
+    [31.96005, 35.1817],
+    [31.95999, 35.18169],
+    [31.95999, 35.18165],
+    [31.95994, 35.18165],
+    [31.95994, 35.1816],
+
+    [31.95989, 35.1816],
+    [31.95989, 35.18152],
+
+
+    [31.95943, 35.18153],
+
+]
+kafTamreed_location =[
+    [31.96193, 35.18275],
+    [31.96203, 35.18285],
+    [31.96209, 35.18288],
+    [31.9621 , 35.18284],
+    [31.96215 , 35.18285],
+    [31.96224 , 35.18277],
+    [31.962205 ,35.18271],
+
+    [31.96222 , 35.1827],
+    [31.96214 , 35.18258],
+    [31.96204 , 35.18272],
+    [31.96199 , 35.18267],
+
+    [31.96193, 35.18275],
+]
+faculty_location =[
+    [31.95992, 35.1807],
+    [31.95986, 35.18093],
+    [31.960156, 35.18104],
+    [31.960216, 35.18082],
+
+
+
+    [31.95992, 35.1807],
+]
+high_location = [
+    [31.95815, 35.18241],
+    [31.95816, 35.18272],
+    [31.95838, 35.18272],
+    [31.95838, 35.18262],
+    [31.95834, 35.18262],
+    [31.958332, 35.18241],
+
+
+    [31.95815, 35.18241],
+]
+lawFaculty_location =[
+    [31.95939, 35.18221],
+    [31.95939, 35.18246],
+    [31.959563, 35.18246],
+    [31.95957, 35.18256],
+    [31.959655 , 35.18256],
+    [31.959655 , 35.18248],
+    [31.95973 , 35.18248],
+    [31.95973 , 35.18233],
+    [31.95957 , 35.18233],
+    [31.95957 , 35.18221],
+
+    [31.95939, 35.18221],
+]
+reasa_location =[
+    [31.95924 , 35.183],
+    [31.95924 , 35.18319],
+    [31.95917 , 35.18319],
+    [31.95917 , 35.18337],
+    [31.95923 , 35.18337],
+    [31.95923 , 35.18343],
+    [31.959377 , 35.18343],
+    [31.95937 , 35.183],
+
+
+
+    [31.95924, 35.183],
+]
+tasjeel_location =[
+    [31.959128 , 35.18233],
+    [31.95913 , 35.18262],
+    [31.95926 , 35.18262],
+    [31.95926 , 35.18252],
+    [31.95939 , 35.18251],
+    [31.95939 , 35.18233],
+
+
+
+    [31.959128, 35.18233],
+]
+fonon_location = [
+    [31.96204 , 35.18234],
+    [31.96204  , 35.18202],
+    [31.96187 , 35.18202],
+    [31.96187, 35.18234],
+
+    [31.96204 , 35.18234],
+];
+koleya_jadeda_location =[
+    [31.96164 , 35.18234],
+    [31.96164  , 35.18202],
+    [31.96147 , 35.18202],
+    [31.96147, 35.18234],
+
+    [31.96164 , 35.18234],
+]
+bankfalasteen_location =[
+    [31.96016 , 35.18236],
+    [31.96008 , 35.18223],
+    [31.96 , 35.18235],
+    [31.96008 , 35.18247],
+    [31.96016 , 35.18236],
+]
+bookStore_location =[
+    [31.96025 , 35.18252],
+    [31.96016 , 35.18236],
+    [31.96008 , 35.18247],
+    [31.96017 , 35.18261],
+    [31.96025 , 35.18252],
+]
+shini_location =[
+    [31.96043 , 35.1823],
+    [31.96022 , 35.182],
+    [31.9601 , 35.18218],
+    [31.96028 , 35.18248],
+    [31.96043 , 35.1823],
+]
+tree_structure = {
+    "A1": ["A0","A2"],
+    "A2": ["A1", "J0","A3"],
+    "A3": ["A2", "A4","A11"],
+    "A4": ["A5", "A3"],
+    "A5": ["A4", "A6"],
+    "A6": ["A5", "A7"],
+    "A7": ["A6", "A8","B1"],
+    "A8": ["A7", "A9","L0"],
+    "A9": ["A8", "A10","H5"],
+    "A10": ["A9", "A11"],
+    "A11": ["A10", "A3","J0"],
+    "A0": ["A1", "J0"],
+    "J0": ["A0", "A2","A11","D0"],
+    "B1": ["A7", "B2"],
+    "B2": ["B1", "B3","K0"],
+    "B3": ["B2", "B4"],
+    "B4": ["B3", "B5"],
+    "B5": ["B4", "C1"],
+    "C1": ["B5", "C2","Z2"],
+    "C2": ["C1", "C3"],
+    "C3": ["C2", "C4"],
+    "C4": ["C3", "C5"],
+    "C5": ["C4", "C6"],
+    "C6": ["C5", "C7"],
+    "C7": ["C6", "C8"],
+    "C8": ["C7", "C9"],
+    "C9": ["C8", "C10","F4"],
+    "C10": ["C9", "C11"],
+    "C11": ["C10", "C12"],
+    "C12": ["C11", "C13"],
+    "C13": ["C12", "C14"],
+    "C14": ["C13", "C15"],
+    "C15": ["C14", "C16"],
+    "C16": ["C15", "C17"],
+    "C17": ["C16", "C18"],
+    "C18": ["C17", "C19"],
+    "C19": ["C18", "C20"],
+    "C20": ["C19", "C21"],
+    "C21": ["C20", "C22"],
+    "C22": ["C21", "C23"],
+    "C23": ["C22", "C24"],
+    "C24": ["C23", "D2"],
+    "D0": ["D1","J0"],
+    "D1": ["D0", "D2"],
+    "D2": ["C24", "D3","D1"],
+    "D3": ["D2", "D4"],
+    "D4": ["D3", "D5"],
+    "D5": ["D4", "D6"],
+    "D6": ["D5", "Z0"],
+    "D7": ["Z0", "D8","D16"],
+    "D8": ["D7", "D9","D16"],
+    "D9": ["D8", "D10","E1"],
+    "D10": ["D9", "D11","E1"],
+    "D11": ["D10", "D12"],
+    "D12": ["D11", "D13"],
+    "D13": ["D12", "D14","F1"],
+    "D14": ["D13", "D15"],
+    "D15": ["D14", "D16","F2"],
+    "D16": ["D15", "D7","D8"],
+    "F1": ["D13", "F2"],
+    "F2": ["F1", "F3"],
+    "F3": ["F2", "F4"],
+    "F4": ["F3", "C9","G1"],
+    "G1": ["F4", "G2"],
+    "G2": ["G1", "G3"],
+    "G3": ["G2", "G4"],
+    "G4": ["G3", "G5"],
+    "G5": ["G4", "G6"],
+    "G6": ["G5", "E4","Z2"],
+    "E4": ["G6", "E3"],
+    "E3": ["E4", "E2"],
+    "E2": ["E3", "Z1","H1"],
+    "E1": ["Z1", "D9","D10"],
+    "H1": ["E2", "H2"],
+    "H2": ["H1", "H3"],
+    "H3": ["H2", "H4"],
+    "H4": ["H3", "K2","H5"],
+    "H5": ["H4", "A9"],
+    "K0": ["B2", "K1"],
+    "K1": ["K0", "K2"],
+    "K2": ["K1", "H4"],
+    "L0": ["A8", "B2"],
+    "Z0": ["D7", "D6"],
+    "Z1": ["E2", "E1"],
+    "Z2": ["C1", "G6"],
+
+}
+
+
+const buildings_images = {
+    "IT_location": {
+        "msg": "كلية الاي تي",
+        "counter": 0,
+        "imgs": ["228.JPG"],
+        "my_location": IT_location
+    },
+    "NAJJAD_location": {
+        "msg": "القبة الزرقاء",
+        "counter": 0,
+        "imgs": ["225.JPG","217.JPG","257.JPG","258.JPG"],
+        "my_location": NAJJAD_location
+    },
+    "Tarbiya_location": {
+        "msg": "كلية التربية",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": Tarbiya_location
+    },
+    "Hoqoq_location": {
+        "msg": "كلية الحقوق",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": Hoqoq_location
+    },
+    "mainLibrary_location": {
+        "msg": "المكتبة الرئيسية",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": mainLibrary_location
+    },
+    "kamalNaser_location": {
+        "msg": "مبنى كمال ناصر",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": kamalNaser_location
+    },
+    "olom_location": {
+        "msg": "كلية العلوم",
+        "counter": 0,
+        "imgs": ["15.JPG"],
+        "my_location": olom_location
+    },
+    "handasa_location": {
+        "msg": "كلية الهندسة",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": handasa_location
+    },
+    "tejara_location": {
+        "msg": "كلية التجارة",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": tejara_location
+    },
+    "sport_location": {
+        "msg": "كلية الرياضة",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": sport_location
+    },
+    "adab_location": {
+        "msg": "كلية الآداب",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": adab_location
+    },
+    "ilam_location": {
+        "msg": "كلية الإعلام",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": ilam_location
+    },
+    "tanmiya_location": {
+        "msg": "مبنى التنمية",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": tanmiya_location
+    },
+    "woman_location": {
+        "msg": "معهد دراسات المرأة",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": woman_location
+    },
+    "tamreed_location": {
+        "msg": "كلية التمريض",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": tamreed_location
+    },
+    "edara_location": {
+        "msg": "مبنى الإدارة",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": edara_location
+    },
+    "food_location": {
+        "msg": "الكافتيريا المركزية",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": food_location
+    },
+    "kafTamreed_location": {
+        "msg": "كافتيريا التمريض",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": kafTamreed_location
+    },
+    "faculty_location": {
+        "msg": "المشاغل",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": faculty_location
+    },
+    "high_location": {
+        "msg": "ملحق التجارة",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": high_location
+    },
+    "lawFaculty_location": {
+        "msg": "معهد الحقوق",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": lawFaculty_location
+    },
+    "reasa_location": {
+        "msg": "مبنى الرئاسة",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": reasa_location
+    },
+    "tasjeel_location": {
+        "msg": "مبنى التسجيل",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": tasjeel_location
+        
+    },
+    
+    "fonon": {
+        "msg": "كلية الفنون",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": fonon_location
+        
+    },
+    "koleya_jadeda": {
+        "msg": "الكلية الجديدة",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": koleya_jadeda_location
+        
+    },
+    "bankfalasteen_location": {
+        "msg": "بنك فلسطين",
+        "counter": 0,
+        "imgs": ["95.JPG"],
+        "my_location": bankfalasteen_location
+        
+    },
+    "bookStore_location":{
+        "msg": "بوك ستور",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": bookStore_location
+    },
+    "shini_location":{
+        "msg": "الشيني",
+        "counter": 0,
+        "imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],
+        "my_location": shini_location
+    }
+};
+
+
+const polylineLayers  =[];
+let start ,goal;
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+///////////////here/////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+
+let debugging = L.featureGroup({});
+debugging.addTo(my_map);
+let kafeterya_group = L.featureGroup({});
+kafeterya_group.addTo(my_map);
+let gates_group = L.featureGroup({});
+gates_group.addTo(my_map);
+let otherBuildingsGroup = L.featureGroup({});
+otherBuildingsGroup.addTo(my_map);
+let mosalla_group = L.featureGroup({});
+mosalla_group.addTo(my_map);
+let matba3a_group = L.featureGroup({});
+matba3a_group.addTo(my_map);
+let mahalat_group = L.featureGroup({});
+mahalat_group.addTo(my_map);
+let camera_group = L.featureGroup({});
+camera_group.addTo(my_map);
+let layer_control_51eb62693e988abeeae6e66f6b5fcb4d_layers = {
+    base_layers : {
+        "الخيارات" : my_layer,
+    },
+    overlays :  {
+        "تجربة" : debugging,
+        "الكافتيريات" : kafeterya_group,
+        "مباني مهمة" :otherBuildingsGroup,
+        "المداخل" :gates_group,
+        "المصليات" : mosalla_group,
+        "المطبعات" : matba3a_group,
+        "محلات" : mahalat_group,
+        "تصوير" : camera_group,
+
+    },
+};
+let layer_control_51eb62693e988abeeae6e66f6b5fcb4d = L.control.layers(
+    layer_control_51eb62693e988abeeae6e66f6b5fcb4d_layers.base_layers,
+    layer_control_51eb62693e988abeeae6e66f6b5fcb4d_layers.overlays,
+    {"autoZIndex": true, "collapsed": false, "position": "topright"}
+).addTo(my_map);
+
+    
+const G = new jsnx.DiGraph(tree_structure);
+function findPath(graph, start, end) {
+
+        try {
+            console.log(`start: ${start}, end: ${end}`);
+            console.log(graph.nodes());
+            console.log(graph.edges());
+            const path = jsnx.shortestPath(graph, { source: start, target: end, weight: 'dijkstra' });
+            return path;
+        } catch (error) {
+            if (error instanceof jsnx.NetworkXNoPath) {
+                return null;
+            }
+            throw error;
+        }
+    }
+function addRoad(currentPoint, nextPoint) {
+    let poly_line_508f4f512be9c5ae6783eba4324dee65 = L.polyline(
+        [currentPoint, nextPoint],
+        {"bubblingMouseEvents": true, "color": "#8EE9FF", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#8EE9FF", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 1.0, "smoothFactor": 1.0, "stroke": true, "weight": 15}
+    ).addTo(my_map);
+
+    ant_path_f2ec1508e8ba8198e4911859d478e7ad = L.polyline.antPath(
+        [currentPoint, nextPoint],
+        {"bubblingMouseEvents": true, "color": "#0000FF", "dashArray": [20, 30], "dashOffset": null, "delay": 400, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "hardwareAcceleration": false, "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.5, "paused": false, "pulseColor": "#FFFFFF", "reverse": "True", "smoothFactor": 1.0, "stroke": true, "weight": 5}
+    ).addTo(my_map);
+
+    // Use push to add elements to the array
+    polylineLayers.push(poly_line_508f4f512be9c5ae6783eba4324dee65);
+    polylineLayers.push(ant_path_f2ec1508e8ba8198e4911859d478e7ad);
+}
+function removePolylineLayers() {
+        polylineLayers.forEach(layer => {
+            my_map.removeLayer(layer);
+        });
+        
+
+    // Remove all elements from the array
+    polylineLayers.splice(0, polylineLayers.length);
+
+}
+function toggleFullscreen(element) {
+    if (!document.fullscreenElement) {
+        element.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+}
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+///////////////here/////////////////////////
+////////////////////////////////////////
+function showValues(event) {
+            removePolylineLayers();
+
+            // Finding the shortest path
+            const pathResult = findPath(G, start, goal);
+
+            // Storing the path coordinates
+            const myPath = pathResult.map(point => POINTS[point]);
+
+            // Reversing the path array
+            myPath.reverse();
+            // drowing the road path
+            for (let i = 0; i < myPath.length - 1; i++) {
+                const currentPoint = myPath[i];
+                const nextPoint = myPath[i + 1];
+                console.log(`Pair ${i + 1}: [${currentPoint}] to [${nextPoint}]`);
+                addRoad(currentPoint,nextPoint);
+                // If not the last point, you can also get the next-to-next point
+                if (i < myPath.length - 2) {
+                    const nextToNextPoint = myPath[i + 2];
+                }
+            }
+                
+        }
+
+function swapImageRight(event, obj_key) {
+    if (obj_key in buildings_images) {
+        const Images = buildings_images[obj_key]["imgs"];
+        const my_length = Images.length;
+        const img_id = obj_key;
+        let counter = buildings_images[obj_key]["counter"];
+        
+        // Prevent the default context menu on right-click
+        event.preventDefault();
+
+        // Increment the counter and update the image source
+        counter = (counter + 1) % my_length;
+        buildings_images[obj_key]["counter"] = counter;
+        $("#" + img_id).attr("src", "./IMG/" + Images[counter]);
+    }else{
+        const Images = kafeterya_points[obj_key]["imgs"];
+        const my_length = Images.length;
+        const img_id = obj_key;
+        let counter = kafeterya_points[obj_key]["counter"];
+        
+        // Prevent the default context menu on right-click
+        event.preventDefault();
+
+        // Increment the counter and update the image source
+        counter = (counter + 1) % my_length;
+        kafeterya_points[obj_key]["counter"] = counter;
+        $("#" + img_id).attr("src", "./IMG/" + Images[counter]);
+    }
+
+    
+}
+function swapImageLeft(event, obj_key) {
+    if (obj_key in buildings_images) {
+        const Images = buildings_images[obj_key]["imgs"];
+        const my_length = Images.length;
+        const img_id = obj_key;
+        let counter = buildings_images[obj_key]["counter"];
+        
+        // Prevent the default context menu on right-click
+        event.preventDefault();
+
+        // Increment the counter and update the image source
+        counter = (counter - 1 + my_length) % my_length;  // Ensure a positive result
+        buildings_images[obj_key]["counter"] = counter;
+        $("#" + img_id).attr("src", "./IMG/" + Images[counter]);
+    }else{
+        const Images = kafeterya_points[obj_key]["imgs"];
+        const my_length = Images.length;
+        const img_id = obj_key;
+        let counter = kafeterya_points[obj_key]["counter"];
+        
+        // Prevent the default context menu on right-click
+        event.preventDefault();
+
+        // Increment the counter and update the image source
+        counter = (counter - 1 + my_length) % my_length;  // Ensure a positive result
+        kafeterya_points[obj_key]["counter"] = counter;
+        $("#" + img_id).attr("src", "./IMG/" + Images[counter]);
+    }
+
+}
+
+
+
+
+function building(my_location, Mycolor, fillOpacity, borderWeight, borderColor = "blue", text = "") {
+    let my_building = L.polygon(
+        my_location,
+        {
+            "bubblingMouseEvents": false,
+            "color": borderColor,
+            "dashArray": null,
+            "dashOffset": null,
+            "fill": true,
+            "fillColor": Mycolor,
+            "fillOpacity": fillOpacity,
+            "fillRule": "evenodd",
+            "lineCap": "round",
+            "lineJoin": "round",
+            "noClip": false,
+            "opacity": 1.0,
+            "smoothFactor": 1.0,
+            "stroke": true,
+            "weight": borderWeight
+        }
+    ).addTo(my_map);
+
+    if (text !== "") {
+        // Calculate the centroid of the polygon
+        let centroid = my_building.getBounds().getCenter();
+
+        // Create a tooltip with the specified text
+        let tooltip = L.tooltip({
+            permanent: true, // Keep the tooltip open
+            direction: 'center', // Center the tooltip over the polygon
+            className: 'text-tooltip' // Custom CSS class for styling
+        }).setContent(text);
+
+        // Attach the tooltip to the centroid of the polygon
+        tooltip.setLatLng(centroid);
+        tooltip.addTo(my_map);
+    }
+    return my_building;
+}
+
+building([
+[31.95954 , 35.1813],
+[31.959515 , 35.18146],
+[31.95975 , 35.18151],
+[31.959744 , 35.181359],
+
+[31.95954 , 35.1813],
+],'#FFFFE5',1.0,0); 
+building([
+[31.96542 , 35.18052],
+[31.96536 , 35.18236],
+[31.96638 , 35.18239],
+[31.96637 , 35.1805],
+
+[31.96542 , 35.18052],
+],'#D9D0C9',5.0,0);
+
+building(bookStore_location,'#D9D0C9',5.0,1,"#C4B7A9","بوك ستوور");
+building(bankfalasteen_location,'#D9D0C9',5.0,1,"#C4B7A9","بنك فلسطين");
+building(shini_location,'#D9D0C9',5.0,1,"#C4B7A9","الشيني");
+
+
+building(koleya_jadeda_location,'#D9D0C9',5.0,1,"#C4B7A9","الكلية الجديدة");
+
+building(fonon_location,'#D9D0C9',5.0,1,"#C4B7A9","كلية الفنون");
+
+for (let obj_key in buildings_images) {
+    let text ="";
+    if (obj_key == "tanmiya_location" || obj_key ==  "woman_location" ||obj_key =="ilam_location" || obj_key == "reasa_location" || obj_key == "tasjeel_location"){
+        text =buildings_images[obj_key]["msg"];
+    }
+
+    let my_building = building(buildings_images[obj_key]["my_location"], '#D9D0C9', 0, 0, "#C4B7A9",text);
+
+    // Extract key and popup content from buildings_images object
+    const image = buildings_images[obj_key]["imgs"][0];
+    const img_id = obj_key;
+    const msg = buildings_images[obj_key]["msg"];
+    // Create a popup with unique name
+    let popup = L.popup({
+        "maxWidth": 300
+    });
+    
+    let popupContent = $(`
+        <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+                <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                    <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+                </button>
+                <div style="text-align: center; margin: 0 20px;">
+                    <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                    <b>${msg}<br>
+                </div>
+                <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                    <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+                </button>
+            </div>
+    `)[0];
+    popup.setContent(popupContent);
+
+
+    // Bind the popup to the marker
+    my_building.bindPopup(popup);
+}
+
+function toggleBackgroundColor(button, color) {
+    if (button.style.backgroundColor === color) {
+        // If the background color is already set, remove it
+        button.style.backgroundColor = "white";
+    } else {
+        // Otherwise, set the background color
+        button.style.backgroundColor = color;
+    }
+}
+function addToStart(event){
+    let key = event.currentTarget.dataset.key;
+    console.log("start = " + key);
+    start = key;
+    toggleBackgroundColor(event.currentTarget, "lightgreen");
+
+}
+function addToGoal(even){
+    let key = event.currentTarget.dataset.key;
+    console.log("goal = " + key);
+    goal = key;
+    toggleBackgroundColor(event.currentTarget, "lightgreen");
+
+}
+function setMarker(position,key){
+    let myMarker = L.marker(
+        position, {}
+    ).addTo(debugging);
+    let icon = L.AwesomeMarkers.icon({icon: 'cloud', prefix: 'fa', markerColor: 'blue', iconColor: 'white'});
+    myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID_${key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+        <button type="button" data-key="${key}" onclick="addToStart(event)" style="border: none; background: none; cursor: pointer;">
+            <i>start from here</i>
+        </button>
+        <button type="button" data-key="${key}" onclick="addToGoal(event)" style="border: none; background: none; cursor: pointer;">
+            <i>end here </i>
+        </button>
+        <button type="button" onclick="showValues(event)" style="border: none; background: none; cursor: pointer;">
+            <i style="font-size:24px" class="fa">&#xf279;</i>
+        </button>
+    </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+function setMarkerCamera(obj_key){
+    const msg =  camera[obj_key]["msg"];
+    const img_id =  obj_key;
+    const image = camera[obj_key]["imgs"][0];
+    const my_location = camera[obj_key]["my_location"];
+    let myMarker = L.marker(
+        my_location, {}
+    ).addTo(camera_group);
+    let icon = L.AwesomeMarkers.icon({icon: 'camera', prefix: 'fa', markerColor: 'lightred', iconColor: 'white'});
+    myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+
+    
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+            </button>
+            <div style="text-align: center; margin: 0 20px;">
+                <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                <b>${msg}<br>
+            </div>
+            <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </button>
+        </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+
+function setMarkerMahalat(obj_key){
+    const msg =  mahalat[obj_key]["msg"];
+    const img_id =  obj_key;
+    const image = mahalat[obj_key]["imgs"][0];
+    const my_location = mahalat[obj_key]["my_location"];
+    let myMarker = L.marker(
+        my_location, {}
+    ).addTo(mahalat_group);
+    let icon = L.AwesomeMarkers.icon({icon: 'shopping-cart', prefix: 'fa', markerColor: 'darkred', iconColor: 'white'});
+    myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+
+    
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+            </button>
+            <div style="text-align: center; margin: 0 20px;">
+                <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                <b>${msg}<br>
+            </div>
+            <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </button>
+        </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+
+
+
+
+function setMarkerMatba3a(obj_key){
+    const msg =  matba3a[obj_key]["msg"];
+    const img_id =  obj_key;
+    const image = matba3a[obj_key]["imgs"][0];
+    const my_location = matba3a[obj_key]["my_location"];
+    let myMarker = L.marker(
+        my_location, {}
+    ).addTo(matba3a_group);
+    let icon = L.AwesomeMarkers.icon({icon: 'print', prefix: 'fa', markerColor: 'darkpurple', iconColor: 'white'});
+    myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+
+    
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+            </button>
+            <div style="text-align: center; margin: 0 20px;">
+                <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                <b>${msg}<br>
+            </div>
+            <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </button>
+        </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+
+
+function setMarkerMosalla(obj_key){
+    const msg =  mosalla[obj_key]["msg"];
+    const img_id =  obj_key;
+    const image = mosalla[obj_key]["imgs"][0];
+    const my_location = mosalla[obj_key]["my_location"];
+    let myMarker = L.marker(
+        my_location, {}
+    ).addTo(mosalla_group);
+    let icon = L.AwesomeMarkers.icon({icon: 'star-and-crescent', prefix: 'fa', markerColor: 'green', iconColor: 'white'});
+    myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+
+    
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+            </button>
+            <div style="text-align: center; margin: 0 20px;">
+                <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                <b>${msg}<br>
+            </div>
+            <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </button>
+        </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+
+function setMarkerGates(obj_key){
+    const msg =  madakhel[obj_key]["msg"];
+    const img_id =  obj_key;
+    const image = madakhel[obj_key]["imgs"][0];
+    const my_location = madakhel[obj_key]["my_location"];
+    let myMarker = L.marker(
+        my_location, {}
+    ).addTo(gates_group);
+    let icon = L.AwesomeMarkers.icon({
+    icon: 'sign-in-alt', 
+    prefix: 'fa', 
+    markerColor: 'cadetblue', 
+    iconColor: 'white'
+});
+myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+
+    
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+            </button>
+            <div style="text-align: center; margin: 0 20px;">
+                <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                <b>${msg}<br>
+            </div>
+            <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </button>
+        </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+
+function setMarkerKafeterya(obj_key){
+    const msg =  kafeterya_points[obj_key]["msg"];
+    const img_id =  obj_key;
+    const image = kafeterya_points[obj_key]["imgs"][0];
+    const my_location = kafeterya_points[obj_key]["my_location"];
+    let myMarker = L.marker(
+        my_location, {}
+    ).addTo(kafeterya_group);
+    let icon = L.AwesomeMarkers.icon({icon: 'utensils', prefix: 'fa', markerColor: 'red', iconColor: 'white'});
+    myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+
+    
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+            </button>
+            <div style="text-align: center; margin: 0 20px;">
+                <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                <b>${msg}<br>
+            </div>
+            <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </button>
+        </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+function setMarkerKafCofee(obj_key){
+    const msg =  kaf_cofee_points[obj_key]["msg"];
+    const img_id =  obj_key;
+    const image = kaf_cofee_points[obj_key]["imgs"][0];
+    const my_location = kaf_cofee_points[obj_key]["my_location"];
+    let myMarker = L.marker(
+        my_location, {}
+    ).addTo(kafeterya_group);
+    let icon = L.AwesomeMarkers.icon({icon: 'coffee', prefix: 'fa', markerColor: 'red', iconColor: 'white'});
+    myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+
+    
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+            </button>
+            <div style="text-align: center; margin: 0 20px;">
+                <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                <b>${msg}<br>
+            </div>
+            <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </button>
+        </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+
+function setMarkerOtherBuildings(obj_key){
+    const msg =  otherBuilding_points[obj_key]["msg"];
+    const img_id =  obj_key;
+    const image = otherBuilding_points[obj_key]["imgs"][0];
+    const my_location = otherBuilding_points[obj_key]["my_location"];
+    let icon_tag ="star";
+    let myMarker = L.marker(
+        my_location, {}
+    ).addTo(otherBuildingsGroup);
+    let icon = L.AwesomeMarkers.icon({
+        icon: icon_tag, 
+        prefix: 'fa', 
+        markerColor: 'orange', 
+        iconColor: 'white'
+    }); // shopping-cart // star  // medkit //flag  //bookmark // utensils
+    myMarker.setIcon(icon);
+
+
+    let popup_e0d8f99ad49228069563795e05b3f7e0 = L.popup({
+        "maxWidth": 300
+    });
+
+    
+    let html_da072b9278174d1dc8292a7a4fca5af8 = $(`
+    <div id="my_htmlShow_ID+${obj_key}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+            <button type="button" onclick="swapImageLeft(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-left' style='font-size:24px'></i>
+            </button>
+            <div style="text-align: center; margin: 0 20px;">
+                <img id=${img_id} src="./IMG/${image}" alt="Image" style="width: 240px; height: 200px; border-radius: 8px; cursor: pointer;" onclick="toggleFullscreen(this);">
+                <b>${msg}<br>
+            </div>
+            <button type="button" onclick="swapImageRight(event,'${obj_key}')" style="border: none; background: none; cursor: pointer;">
+                <i class='fas fa-angle-double-right' style='font-size:24px'></i>
+            </button>
+        </div>
+`)[0];
+
+
+
+    popup_e0d8f99ad49228069563795e05b3f7e0.setContent(html_da072b9278174d1dc8292a7a4fca5af8);
+
+    myMarker.bindPopup(popup_e0d8f99ad49228069563795e05b3f7e0);
+
+}
+
+
+for( i in POINTS){
+    setMarker(POINTS[i],i);
+
+}
+const otherBuilding_points ={
+    "texhno-park":{"my_location": [31.96571 ,35.18131],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "first_mathaf":{"my_location": [31.96357 , 35.18165],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    
+}
+const kaf_cofee_points = {
+    "abo_ahmed":{"my_location": [31.95886 , 35.18008],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "alzaeem":{"my_location": [31.95923 , 35.17994],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+
+}
+const kafeterya_points = {
+    "tamreed":{"my_location": [31.96207 , 35.18277],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "tejara":{"my_location": [31.95823 , 35.18298],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "oloom":{"my_location": [31.95834, 35.18089],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "main":{"my_location": [31.95967 , 35.18173],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+}
+
+const madakhel ={
+    "sharqi":{"my_location": [31.96176 , 35.18517],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "janobi":{"my_location": [31.95708 , 35.18502],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "qharbi":{"my_location": [31.95857 , 35.18036],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+
+}
+const mosalla ={
+    "IT":{"my_location": [31.96151 , 35.18454],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "HANDASA":{"my_location": [31.95917 , 35.18037],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "olom":{"my_location": [31.95834 , 35.1808],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "adab":{"my_location": [31.96065 , 35.18292],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "hoqoq":{"my_location": [31.96009 , 35.18337],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+
+}
+const matba3a ={
+    "olom":{"my_location": [31.95812 , 35.18159],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "adab":{"my_location": [31.96069 , 35.18252],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "tejara":{"my_location": [31.95828 , 35.18352],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "handasa":{"my_location": [31.9592 , 35.18027],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+
+}
+const mahalat ={
+    "shini":{"my_location": [31.96029 , 35.18228],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+    "bookstore":{"my_location": [31.96019 , 35.1825],"msg": "مبنى الاي تي","counter": 0,"imgs": ["adab_location.jpg", "edara_location.jpg", "food_location.jpg"],},
+}
+const camera ={
+    "shini":{"my_location": [31.96146 , 35.1832],"msg": "مبنى الاي تي","counter": 0,"imgs": ["4.JPG"],},
+}
+for (i in camera){
+    setMarkerCamera(i);
+}
+for (i in mahalat){
+    setMarkerMahalat(i);
+}
+for (i in matba3a){
+    setMarkerMatba3a(i);
+}
+for (i in mosalla){
+    setMarkerMosalla(i);
+}
+for (i in kaf_cofee_points){
+    setMarkerKafCofee(i);
+}
+for (i in kafeterya_points){
+    setMarkerKafeterya(i);
+}
+
+for (i in otherBuilding_points){
+    setMarkerOtherBuildings(i);
+}
+
+for (i in madakhel){
+    setMarkerGates(i);
+}
+
+
+
+var divElement = document.querySelector('.leaflet-control-attribution.leaflet-control');
+
+if (divElement) {
+    divElement.innerHTML = `
+        <div class="leaflet-control-attribution leaflet-control">
+            <div class="leaflet-control-attribution leaflet-control">
+                <span aria-hidden="true"></span>
+                <a href="https://www.facebook.com/lanaaa99">Lana Alsayes</a> <span class="profession">photographer</span>
+            </div>
+            <span aria-hidden="true"></span> © 
+            <a href="https://www.linkedin.com/in/taher-hasan-8059a8267/">Taher Hasan</a> <span class="profession">developer</span>
+            <span aria-hidden="true">|</span> 
+            <a href="https://www.facebook.com/adeebsalamen">Adeeb R Salameen</a> <span class="profession">&</span>
+        </div>`;
+}
+
+    // // Prevent right-click on the entire document
+    // document.addEventListener("contextmenu", function (e) {
+    //   e.preventDefault();
+    // });
+    // var sectionElement = document.querySelector('.leaflet-control-layers-list');
+// sectionElement.addEventListener("contextmenu", function (e) {
+//     e.preventDefault();
+// });
+// sectionElement.style.userSelect = 'none';
+// sectionElement.style.webkitUserSelect = 'none';
+// sectionElement.style.MozUserSelect = 'none';
+// sectionElement.style.msUserSelect = 'none';
+// sectionElement.style.direction = 'rtl';
+
+document.addEventListener("DOMContentLoaded", function() {
+    const radioBtn = document.querySelector('.leaflet-control-layers-selector');
+    const overlaysDiv = document.querySelector('.leaflet-control-layers-overlays');
+    const overlaysDiv2 = document.querySelector('.leaflet-control-layers-separator');
+    const layersList = document.querySelector('.leaflet-control-layers-list');
+    layersList.style.direction = "rtl";
+
+    radioBtn.addEventListener('click', function() {
+        if (overlaysDiv.style.display === "none") {
+            overlaysDiv.style.display = "block";
+            overlaysDiv2.style.display = "block";
+        } else {
+            overlaysDiv.style.display = "none";
+            overlaysDiv2.style.display = "none";
+
+        }
+    });
+});
+
+$('.text-tooltip').hide();
+</script>
+</html>

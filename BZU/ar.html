@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="ar">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PRVBJJFWBW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-PRVBJJFWBW');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="9897b9dea6758d9a19fab9115a32e44c.jpg" type="image/x-icon">
+    <title>مولد الجداول - جامعة بيرزيت</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <meta property="og:url" content="https://www.bzu-hub.com/schedule-main/ar.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="مولد الجداول لطلاب جامعة بيرزيت" />
+    <meta property="og:description" content="يوفر موقعنا الإلكتروني مجموعة واسعة من الخدمات والموارد لمساعدتك على النجاح في مساعيك الأكاديمية." />
+    <meta property="og:image" content="tag1.png" />
+    <link rel="stylesheet" href="./style_hidden.css">
+    
+    <header>
+        <h1 style="user-select: none;"><< مولد الجداول >></h1>
+    </header>
+    
+</head>
+<body>
+    
+    <div class="container ">
+        <div class="language-selector " class="green-text" style="text-align: right; direction: rtl;user-select: none;">
+            <select id="languageSelect" class="green-text">
+                <option value="ar" class="green-text">العربية</option>
+                <option value="en" class="green-text">English</option>
+            </select>
+        </div>
+        <div id="clock" style="direction: rtl;user-select: none;"></div>  
+        <div id="courseInput" class="user-select: none;" style="user-select: none;">
+            <input type="text" style="text-align: center;"id="courseNameInput" placeholder="ادخل رمز المساق" style="text-align: right;user-select: none;"onkeyup="autocomplete()">
+        </div>
+
+
+        <ul id="suggestions" style="text-align: center;"></ul>
+
+
+        <div class="options " id="options" style="flex-direction: row-reverse;direction: rtl;display: none;">
+            <label for="reduceDaysCheckbox"  style="user-select: none;" >
+                <input type="checkbox" id="reduceDaysCheckbox" > تقليل أيام الدوام
+            </label>
+            <label for="reduceTimeCheckbox"  style="user-select: none;" >
+                <input type="checkbox" id="reduceTimeCheckbox" > تقليل الوقت اليومي
+            </label>
+            <label for="removeFullSections"  style="user-select: none;" >
+                <input type="checkbox" id="removeFullSections" > حذف المساقات الممتلئة
+            </label>
+            <label for="reduceEndTimeCheckbox"  style="user-select: none;" >
+                <input type="checkbox" id="reduceEndTimeCheckbox" > تقليل وقت نهاية الدوام
+            </label>
+        </div>
+
+        
+        
+        
+        
+        <p  id="courseInfo"></p>
+
+        <div class="topBottons" style="user-select: none;" >
+            <div id ="DrSettings" class="DrSettings" style="display:none">
+
+            </div>
+            <div id ="DrSettingsSub" class="DrSettingsSub" style="display:none">
+
+            </div>
+            <div id="ExtraButtons" class="ExtraButtons" style="display: none;">
+                <button class="toggleButtonDays" id="toggleButtonDays">اليوم</button>
+                <button class="toggleButtonHours" id="toggleButtonHours">الوقت</button>
+                <button class="toggleButtonDrs" id="toggleButtonDrs">المعلم</button>
+            
+            </div>
+
+            <div id="timeInputs" style="display: none;flex-direction: row-reverse;direction: rtl;">
+                <label for="startTime" style="text-align: right;">بداية الدوام</label>
+                <input type="text" style="flex-direction: row-reverse;direction: rtl;" id="startTime" placeholder="بداية الدوام (بالساعات) على سبيل المثال: 7"><br>
+                <label for="endTime" style="text-align: right;">نهاية الدوام</label>
+                <input type="text" style="flex-direction: row-reverse;direction: rtl;" id="endTime" placeholder="نهاية الدوام (بالساعات) على سبيل المثال: 14"><br>
+                <button id="backButton">تأكيد</button>
+            </div>
+
+            <div id="daysList">
+                <ul style="text-align: left;display: flex;flex-wrap: wrap;" >
+                  <li  data-value="Saturday" >
+                    <input type="checkbox" id="checkboxSaturday">
+                    <label for="checkboxSaturday" style="user-select: none;">السبت</label>
+                  </li>
+                  <li  data-value="Monday">
+                    <input type="checkbox" id="checkboxMonday">
+                    <label for="checkboxMonday" style="user-select: none;" >الإثنين</label>
+                  </li>
+                  <li  data-value="Tuesday">
+                    <input type="checkbox" id="checkboxTuesday">
+                    <label for="checkboxTuesday"style="user-select: none;" >الثلاثاء</label>
+                  </li>
+                  <li  data-value="Wednesday">
+                    <input type="checkbox" id="checkboxWednesday">
+                    <label for="checkboxWednesday"style="user-select: none;" >الأربعاء</label>
+                  </li>
+                  <li  data-value="Thursday">
+                    <input type="checkbox" id="checkboxThursday">
+                    <label for="checkboxThursday"style="user-select: none;" >الخميس</label>
+                  </li>
+                  <li  data-value="returnBack" id = "returnButton">
+                    <input type="checkbox" id="returnBack" >
+                    <label  for="returnBack">⬅</label>
+                  </li>
+                </ul>
+              </div>
+    
+            <div id ="second" style="user-select: none;">
+                <div class="button-container">
+                    <button  id="AddCourseButton">إضافة</button>
+                    <button  id="ReGenerate" class="ReGenerate">تطبيق الاعدادات</button>
+                    <button  id="generateScheduleButton"class="Generate">إنشاء</button>
+                    <button  id="clearScheduleButton">الرجوع</button>
+
+                </div>
+    
+            </div>
+        </div>
+        
+        
+        
+
+            <div id = "table">
+            
+            </div>
+
+
+
+            <br/>
+            <br/>
+            <div class='schedule650b3ed8-605c-5ced-ed7b7bdb8-25964716a624 '>
+                <div class='row header'>
+                    <div class='header-slot' style='left:0px;text-align:center;user-select: none;'>اليوم</div>
+                    <div class='header-slot' style='left:7.7%;text-align:left;user-select: none;'>7</div>
+                    <div class='header-slot' style='left:15.4%;text-align:left;user-select: none;'>8</div>
+                    <div class='header-slot' style='left:23.1%;text-align:left;user-select: none;'>9</div>
+                    <div class='header-slot' style='left:30.8%;text-align:left;user-select: none;'>10</div>
+                    <div class='header-slot' style='left:38.5%;text-align:left;user-select: none;'>11</div>
+                    <div class='header-slot' style='left:46.2%;text-align:left;user-select: none;'>12</div>
+                    <div class='header-slot' style='left:53.9%;text-align:left;user-select: none;'>13</div>
+                    <div class='header-slot' style='left:61.6%;text-align:left;user-select: none;'>14</div>
+                    <div class='header-slot' style='left:69.3%;text-align:left;user-select: none;'>15</div>
+                    <div class='header-slot' style='left:77%;text-align:left;user-select: none;'>16</div>
+                    <div class='header-slot' style='left:84.7%;text-align:left;user-select: none;'>17</div>
+                    <div class='header-slot' style='left:92.4%;text-align:left;user-select: none;'>18</div>
+                </div>
+                <div  class='schedule-day-0 schedule-day-S row' >
+                    <div class='day ' style="user-select: none;">السبت</div>&nbsp;
+                    <div id="Saturday">
+
+                    </div>
+                </div>
+                <div class='schedule-day-1 schedule-day-N row' >
+                    <div class='day ' style="user-select: none;">الأحد</div>&nbsp;
+                    <div id="Sunday">
+
+                    </div>
+                </div>
+                <div class='schedule-day-2 schedule-day-M row' >
+                    <div class='day ' style="user-select: none;">الأثنين</div>&nbsp;
+                    <div id="Monday">
+
+                    </div>
+                </div>
+                <div  class='schedule-day-3 schedule-day-T row' >
+                    <div class='day ' style="user-select: none;">الثلاثاء</div>&nbsp;
+                    <div id="Tuesday">
+
+                    </div>
+                </div>
+                <div  class='schedule-day-4 schedule-day-W row' >
+                    <div class='day ' style="user-select: none;">الأربعاء</div>&nbsp;
+                    <div id="Wednesday">
+
+                    </div>
+                </div>
+                <div class='schedule-day-5 schedule-day-R row' >
+                    <div class='day ' style="user-select: none;">الخميس</div>&nbsp;
+                    <div id="Thursday">
+
+                    </div>
+                </div>
+                <div class='schedule-day-6 schedule-day-F row' >
+                    <div class='day ' style="user-select: none;">الجمعة</div>&nbsp;
+                    <div id="Friday">
+
+                    </div>
+                </div>
+            </div>
+
+        <div style="user-select: none;flex-direction: column;">
+            
+            <div class="button-container">
+                <button id="Next" >التالي</button>
+                <button id="Previous" >السابق</button>
+            </div>
+
+            <p class="button-container"   id="pagination"></p> 
+        </div>
+    
+</br>
+
+<div class="center-container ">
+    <div class="contact ">
+        <label  style="font-size: 20px;direction: rtl;user-select: none;">قدم ملاحظاتك من خلال هذا&nbsp;<a href="https://forms.gle/5TSqDeE47YyZZgxN6" target="_blank">الفورم</a></label>
+        </br>
+
+        <label  for="contact-link" style="direction: rtl;user-select: none;">تواصل معنا</label>
+        <div class="profile ">
+            <div class="profile-info">
+                <a href="https://www.linkedin.com/in/taher-hasan-8059a8267/" target="_blank" id="linkedin-link">
+                    <img src="./logos/linkedin-logo.png" alt="LinkedIn Logo">
+                </a>
+            </div>
+        </div>
+        <div class="profile ">
+            <div class="profile-info">
+                <a href="https://www.facebook.com/profile.php?id=100009133824763&mibextid=LQQJ4d" target="_blank" id="facebook-link">
+                    <img src="./logos/facebook-logo.png" alt="Facebook Logo">
+                </a>
+            </div>
+        </div>
+        <div class="profile ">
+            <div class="profile-info">
+                <a href="https://github.com/TaherHasan94" target="_blank" id="github-link">
+                    <img src="./logos/github-logo.png" alt="GitHub Logo">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="versionInfo"></div>
+</div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
