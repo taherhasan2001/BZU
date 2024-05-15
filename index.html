@@ -1,30 +1,268 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PRVBJJFWBW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-PRVBJJFWBW');
+    </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="icon" href="9897b9dea6758d9a19fab9115a32e44c.jpg" type="image/x-icon">
+    <title>Schedule Generatorr - BZU</title>
+      <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <link rel="stylesheet" href="./style_hidden.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <!-- Open Graph meta tags for Facebook -->
     <meta property="og:url" content="https://www.bzu-hub.com/schedule-main/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Class Schedules for BZU Students" />
     <meta property="og:description" content="يوفر موقعنا الإلكتروني مجموعة واسعة من الخدمات والموارد لمساعدتك على النجاح في مساعيك الأكاديمية." />
     <meta property="og:image" content="tag1.png" />
+
+
+
+    <header >
+        <h1 style="user-select: none;"><< course schedule >></h1>
+    </header>
+    
 </head>
 <body>
-    <script>
-        // Function to get the user's preferred language
-        function getUserLanguage() {
-            // You can implement language detection logic here, e.g., using navigator.language
-            // For this example, let's assume 'ar' for Arabic and 'en' for English
-            return navigator.language.startsWith('ar') ? 'ar' : 'en';
-        }
+    <div class="container">
+        <div class="language-selector " style="user-select: none;">
+            <select id="languageSelect" class="green-text"> 
+                <option value="en" style="color: lightgreen;">English</option>
+                <option value="ar" style="color: lightgreen;">العربية</option>
+            </select>
+        </div>
+        <div id="clock" style="user-select: none;"></div>  
 
-        // Redirect the user to the appropriate page based on their language preference
-        const userLanguage = getUserLanguage();
-        if (userLanguage === 'ar') {
-            window.location.href = 'BZU/ar.html';
-        } else {
-            window.location.href = 'BZU/en.html';
-        }
-    </script>
+        <div id="courseInput" style="user-select: none;">
+            <input type="text" style="text-align: center;" id="courseNameInput" placeholder="Enter course name" onkeyup="autocomplete()">
+        </div>
+
+
+        <ul  id="suggestions" style="text-align: center;"></ul>
+        
+        
+        <div class="options" id="options" style="display: none;">
+            <label  for="reduceDaysCheckbox"  style="user-select: none;">
+                <input type="checkbox" id="reduceDaysCheckbox"> Reduce Days
+                
+            </label>
+            <label  for="reduceTimeCheckbox" style="user-select: none;">
+                <input type="checkbox" id="reduceTimeCheckbox" > Reduce Time
+            </label>
+            <label  for="removeFullSections" style="user-select: none;">
+                <input type="checkbox" id="removeFullSections" > Remove Full Sections
+            </label>
+            <label  for="reduceEndTimeCheckbox" style="user-select: none;">
+                <input type="checkbox" id="reduceEndTimeCheckbox" > Reduce End Time
+            </label>
+        </div>
+
+        <p id="courseInfo"></p>
+
+        <div class="topBottons " style="user-select: none;">
+            <div id ="DrSettings" class="DrSettings" style="display:none">
+
+            </div>
+            <div id ="DrSettingsSub" class="DrSettingsSub" style="display:none">
+
+            </div>
+            <div id="ExtraButtons" class="ExtraButtons" style="display: none;">
+                <button class="toggleButtonDays" id="toggleButtonDays">days</button>
+                <button class="toggleButtonHours" id="toggleButtonHours">hours</button>
+                <button class="toggleButtonDrs" id="toggleButtonDrs">Dr.</button>
+            </div>
+            <div id="timeInputs" style="display: none;">
+                <label for="startTime">Start Time:</label>
+                <input type="text" id="startTime" placeholder="Only in hours, for example: 9"><br>
+                <label for="endTime">End Time:</label>
+                <input type="text" id="endTime" placeholder="Only in hours, for example: 14"><br>
+                <button id="backButton">submit</button>
+            </div>
+
+            <div id="daysList">
+                <ul style="text-align: left;display: flex;flex-wrap: wrap;" >
+                  <li  data-value="Saturday" >
+                    <input type="checkbox" id="checkboxSaturday">
+                    <label for="checkboxSaturday"style="user-select: none;">Sat</label>
+                  </li>
+                  <li  data-value="Monday">
+                    <input type="checkbox" id="checkboxMonday">
+                    <label for="checkboxMonday"style="user-select: none;">Mon</label>
+                  </li>
+                  <li  data-value="Tuesday">
+                    <input type="checkbox" id="checkboxTuesday">
+                    <label for="checkboxTuesday" style="user-select: none;">Tue</label>
+                  </li>
+                  <li  data-value="Wednesday">
+                    <input type="checkbox" id="checkboxWednesday">
+                    <label for="checkboxWednesday" style="user-select: none;">Wed</label>
+                  </li>
+                  <li  data-value="Thursday">
+                    <input type="checkbox" id="checkboxThursday">
+                    <label for="checkboxThursday" style="user-select: none;">Thurs</label> 
+                  </li>
+                  <li  data-value="returnBack" id = "returnButton">
+                    <input type="checkbox" id="returnBack" >
+                    <label  for="returnBack">⬅</label>
+                  </li>
+                </ul>
+              </div>
+              
+            <div id = "second" style="user-select: none;">
+                
+
+                    <div class="button-container">
+                        
+                        <button  id="clearScheduleButton">Back</button>
+                        <button  id="ReGenerate" class="ReGenerate">Apply Settings</button>
+                        <button  id="generateScheduleButton" class="Generate">Generate</button>
+                        <button  id="AddCourseButton" >Add</button>
+                    </div>
+                
+
+                
+
+            </div>
+            
+
+        </div>
+        
+        
+            <div id = "table">
+            
+            </div>
+
+
+            
+            <br/>
+            <br/>
+            <div class='schedule650b3ed8-605c-5ced-ed7b7bdb8-25964716a624 '> 
+                <div class='row header'>
+                    <div class='header-slot' style='left:0px;text-align:center;user-select: none;'>Day</div>
+                    <div class='header-slot' style='left:7.7%;text-align:left;user-select: none;'>7</div>
+                    <div class='header-slot' style='left:15.4%;text-align:left;user-select: none;'>8</div>
+                    <div class='header-slot' style='left:23.1%;text-align:left;user-select: none;'>9</div>
+                    <div class='header-slot' style='left:30.8%;text-align:left;user-select: none;'>10</div>
+                    <div class='header-slot' style='left:38.5%;text-align:left;user-select: none;'>11</div>
+                    <div class='header-slot' style='left:46.2%;text-align:left;user-select: none;'>12</div>
+                    <div class='header-slot' style='left:53.9%;text-align:left;user-select: none;'>13</div>
+                    <div class='header-slot' style='left:61.6%;text-align:left;user-select: none;'>14</div>
+                    <div class='header-slot' style='left:69.3%;text-align:left;user-select: none;'>15</div>
+                    <div class='header-slot' style='left:77%;text-align:left;user-select: none;'>16</div>
+                    <div class='header-slot' style='left:84.7%;text-align:left;user-select: none;'>17</div>
+                    <div class='header-slot' style='left:92.4%;text-align:left;user-select: none;'>18</div> 
+                </div>
+                <div  class='schedule-day-0 schedule-day-S row' >
+                    <div class='day ' style="user-select: none;">Sat</div>&nbsp;
+                    <div id="Saturday">
+
+                    </div>
+                </div>
+                <div class='schedule-day-1 schedule-day-N row' >
+                    <div class='day ' style="user-select: none;">Sun</div>&nbsp;
+                    <div id="Sunday">
+
+                    </div>
+                </div>
+                <div class='schedule-day-2 schedule-day-M row' >
+                    <div class='day ' style="user-select: none;">Mon</div>&nbsp;
+                    <div id="Monday">
+
+                    </div>
+                </div>
+                <div  class='schedule-day-3 schedule-day-T row' >
+                    <div class='day  'style="user-select: none;" >Tue</div>&nbsp;
+                    <div id="Tuesday">
+
+                    </div>
+                </div>
+                <div  class='schedule-day-4 schedule-day-W row' >
+                    <div class='day 'style="user-select: none;" >Wed</div>&nbsp;
+                    <div id="Wednesday">
+
+                    </div>
+                </div>
+                <div class='schedule-day-5 schedule-day-R row' >
+                    <div class='day ' style="user-select: none;">Thurs</div>&nbsp;
+                    <div id="Thursday">
+
+                    </div>
+                </div>
+                <div class='schedule-day-6 schedule-day-F row' >
+                    <div class='day ' style="user-select: none;">Fri</div>&nbsp;
+                    <div id="Friday">
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        <div  style="user-select: none;flex-direction: column;">
+            <div class="button-container">
+                <button  id="Previous">Previous</button>
+                <button  id="Next">Next</button>
+                
+            </div>
+
+
+            <p class="button-container"  id="pagination"></p> 
+        </div>
+    
+</br>
+</br>
+
+<div class="center-container ">
+    
+    <div class="contact ">
+       <p style="font-size: 20px; user-select: none;">
+  Give us your feedback using this&nbsp;<a href="https://forms.gle/5TSqDeE47YyZZgxN6" target="_blank">form</a>.
+</p>
+
+        </br>
+        <label for="contact-link" style="user-select: none;"> Contact:</label>
+        <div class="profile ">
+            <div class="profile-info ">
+                <a href="https://www.linkedin.com/in/taher-hasan-8059a8267/" target="_blank" id="linkedin-link">
+                    <img src="./logos/linkedin-logo.png" alt="LinkedIn Logo">
+                </a>
+            </div>
+        </div>
+        <div class="profile ">
+            <div class="profile-info ">
+                <a href="https://www.facebook.com/profile.php?id=100009133824763&mibextid=LQQJ4d" target="_blank" id="facebook-link">
+                    <img src="./logos/facebook-logo.png" alt="Facebook Logo">
+                </a>
+            </div>
+        </div>
+        <div class="profile ">
+            <div class="profile-info ">
+                <a href="https://github.com/TaherHasan94" target="_blank" id="github-link">
+                    <img src="./logos/github-logo.png" alt="GitHub Logo">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="versionInfo"></div>
+</div>
+
+
+
+    </div>
+    
+    <script src="script.js"></script>
+    
 </body>
 </html>
